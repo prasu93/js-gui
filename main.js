@@ -1,4 +1,14 @@
-const vol = (x, y, z) => { return x * y * z }
+const ls = (x, y) => { 
+    if (x.length>0 && y.length>0) {
+    if (x.length<y.length)
+    {
+        return y
+    }
+    else {
+      return x
+    }
+    }
+}
 
 const validate = async (event) => {
   console.log(`triggered validate on ${event.target.id}`)
@@ -6,20 +16,19 @@ const validate = async (event) => {
   if (isValid) {
     event.target.nextElementSibling.innerHTML = ''
   } else {
-    event.target.nextElementSibling.innerHTML = 'Invalid input(Enter value between 1 and 100)'
+    event.target.nextElementSibling.innerHTML = 'Minimum length of the string should be 1'
     event.target.focus()
   }
 }
 
-const updateWithVolume = async (event) => {
+const longString = async (event) => {
   document.querySelector('#result').innerHTML = ''
-  if (document.querySelector('#len').checkValidity() && document.querySelector('#wid').checkValidity() && document.querySelector('#hei').checkValidity()) {
-    // const regex = /[^a-zA-Z_]/g
-    // const s = document.querySelector('#guest').value.replace(regex, '')
-    const l = parseInt(document.querySelector('#len').value)
-    const w = parseInt(document.querySelector('#wid').value)
-    const h = parseInt(document.querySelector('#hei').value)
-    const ans = `CUBE volume is ${vol(l, w, h)}.`
+  if (document.querySelector('#str1').checkValidity() && document.querySelector('#str2').checkValidity()) {
+    
+    const f = document.querySelector('#str1').value
+    const s = document.querySelector('#str2').value
+    
+    const ans = `Longest string is ${ls(f, s)}.`
     document.querySelector('#result').innerHTML = ans
   }
 }
@@ -30,15 +39,15 @@ const updateWithVolume = async (event) => {
 // focusout is like blur, but it bubbles up
 
 document.addEventListener('focusout', event => {
-  if ((event.target && event.target.id === 'len') ||
-    (event.target && event.target.id === 'wid') || (event.target && event.target.id === 'hei'))
+  if ((event.target && event.target.id === 'str1') ||
+    (event.target && event.target.id === 'str2'))
     {
     validate(event)
   }
 })
 
 document.addEventListener('click', event => {
-  if (event.target && event.target.id === 'volButton') { updateWithVolume(event) }
+  if (event.target && event.target.id === 'res') { longString(event) }
 })
 
 
